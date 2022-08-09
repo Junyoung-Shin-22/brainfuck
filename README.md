@@ -11,3 +11,9 @@ positional arguments:
 optional arguments:
   -h, --help      show this help message and exit
 ```
+
+## Example
+```
+$ python brainfuck.py test/hello.bf
+Hello, World!
+```
