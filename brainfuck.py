@@ -1,6 +1,6 @@
 from brainfuck_classes import *
 from brainfuck_commands import *
-from brainfuck_parse import *
+from brainfuck_parse_compile import *
 from brainfuck_run import *
 
 import argparse
@@ -13,11 +13,19 @@ def main():
     with open(args.brainfuck_file) as f:
         code = f.read()
     
-    tokens = brainfuck_parse(code)
+    parsed = brainfuck_parse(code)
+    compiled = brainfuck_compile(parsed)
+
     global_env = Memory()
+    brainfuck_run(compiled, global_env)
 
+def _debug():
+    code = '++--[+]<<>,.[>[<]]'
+    parsed = brainfuck_parse(code)
+    compiled = brainfuck_compile(parsed)
 
-    brainfuck_run(tokens, global_env)
+    print(*compiled, sep=', ')
 
 if __name__ == '__main__':
+    # _debug()
     main()

@@ -1,11 +1,13 @@
-from brainfuck_commands import BRAINFUCK_COMMANDS
+from brainfuck_classes import *
+from brainfuck_commands import *
 
-def brainfuck_run(tokens, env):
-    for token in tokens:
-        if isinstance(token, list):
+def brainfuck_run(commands, env):
+    for command in commands:
+        if isinstance(command, AtomicCommand):
+            BRAINFUCK_COMMANDS[command.base_command](env, command.amount)
+
+        elif isinstance(command, BracketCommand):
             while env.get_value() != 0:
-                brainfuck_run(token, env)
+                brainfuck_run(command.commands, env)
 
-        elif token in BRAINFUCK_COMMANDS:
-            BRAINFUCK_COMMANDS[token](env)
       
